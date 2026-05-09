@@ -14,7 +14,7 @@ export default function ResultCard({ result, streaming, query }: Props) {
   const isStreaming = !result && !!streaming
 
   return (
-    <div className="animate-slide-up w-full max-w-3xl mx-auto px-6 mt-6">
+    <div className="animate-slide-up">
       <div
         className={`rounded-2xl border overflow-hidden shadow-sm ${
           isHit
@@ -34,13 +34,13 @@ export default function ResultCard({ result, streaming, query }: Props) {
               : 'border-slate-100 bg-slate-50'
           }`}
         >
-          <div className="flex items-center gap-3">
-            <span className="text-xl">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="text-2xl shrink-0">
               {isHit ? '✅' : isMiss ? '❌' : '⏳'}
             </span>
-            <div>
+            <div className="min-w-0">
               <p
-                className={`font-bold text-sm ${
+                className={`font-bold text-base ${
                   isHit ? 'text-emerald-800' : isMiss ? 'text-amber-800' : 'text-slate-600'
                 }`}
               >
@@ -50,20 +50,20 @@ export default function ResultCard({ result, streaming, query }: Props) {
                   ? 'Cache MISS'
                   : 'Calling GPT-4o-mini…'}
               </p>
-              <p className="text-xs text-slate-500 mt-0.5 truncate max-w-xs">
+              <p className="text-sm text-slate-500 mt-0.5 truncate max-w-sm">
                 {query}
               </p>
             </div>
           </div>
 
           {/* Badges */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0 ml-4">
             {isHit && (
               <>
                 <Pill label="Similarity" value={(result as any).similarity.toFixed(4)} color="emerald" mono />
                 <Pill label="Latency" value={`${(result as any).latency_ms} ms`} color="emerald" />
                 <Pill label="Cost" value={`$${(result as any).cost.toFixed(6)}`} color="slate" />
-                <div className="hidden sm:flex items-center gap-1.5 bg-emerald-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                <div className="hidden sm:flex items-center gap-1.5 bg-emerald-600 text-white text-sm font-semibold px-3 py-1.5 rounded-full">
                   🚀 No LLM call
                 </div>
               </>
@@ -72,20 +72,20 @@ export default function ResultCard({ result, streaming, query }: Props) {
               <>
                 <Pill label="Latency" value={`${(result as any).latency_ms} ms`} color="amber" />
                 <Pill label="Cost" value={`$${(result as any).cost.toFixed(6)}`} color="slate" />
-                <div className="hidden sm:flex items-center gap-1.5 bg-slate-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                <div className="hidden sm:flex items-center gap-1.5 bg-slate-600 text-white text-sm font-semibold px-3 py-1.5 rounded-full">
                   💾 Cached
                 </div>
               </>
             )}
             {isStreaming && (
-              <span className="text-xs text-slate-400 font-mono animate-pulse">streaming…</span>
+              <span className="text-sm text-slate-400 font-mono animate-pulse">streaming…</span>
             )}
           </div>
         </div>
 
         {/* Response */}
-        <div className="px-6 py-5">
-          <p className="text-slate-700 leading-relaxed text-[0.95rem]">
+        <div className="px-6 py-6">
+          <p className="text-slate-700 leading-relaxed text-base">
             {result ? result.response : streaming}
             {isStreaming && <span className="cursor" />}
           </p>
@@ -113,8 +113,8 @@ function Pill({
   }
   return (
     <div className={`hidden md:flex flex-col items-center px-3 py-1.5 rounded-lg ${colors[color]}`}>
-      <span className="text-[10px] font-semibold uppercase tracking-wider opacity-70">{label}</span>
-      <span className={`text-xs font-bold mt-0.5 ${mono ? 'font-mono' : ''}`}>{value}</span>
+      <span className="text-xs font-semibold uppercase tracking-wider opacity-70">{label}</span>
+      <span className={`text-sm font-bold mt-0.5 ${mono ? 'font-mono' : ''}`}>{value}</span>
     </div>
   )
 }
