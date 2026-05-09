@@ -28,28 +28,28 @@ export default function StatsGrid({ stats, onReset }: Props) {
   ]
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-6 mt-8">
+    <div>
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
+        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-widest">
           Live Stats
         </h2>
         <button
           onClick={onReset}
-          className="text-xs text-slate-400 hover:text-rose-500 transition-colors font-medium"
+          className="text-sm text-slate-400 hover:text-rose-500 transition-colors font-medium"
         >
           ↺ Reset
         </button>
       </div>
-      <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         {cards.map((c) => (
           <div
             key={c.label}
             className="bg-white border border-slate-200 rounded-xl p-3 text-center shadow-sm"
           >
-            <div className={`text-xl font-extrabold tabular-nums ${c.color}`}>
+            <div className={`text-2xl font-extrabold tabular-nums ${c.color}`}>
               {c.value}
             </div>
-            <div className="text-[10px] text-slate-400 font-medium mt-1 uppercase tracking-wide leading-tight">
+            <div className="text-xs text-slate-400 font-medium mt-1 uppercase tracking-wide leading-tight">
               {c.label}
             </div>
           </div>

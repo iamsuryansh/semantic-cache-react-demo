@@ -96,11 +96,26 @@ export default function App() {
     <div className="min-h-screen bg-slate-50">
       <Navbar />
       <Hero />
-      <QueryInput onSubmit={handleQuery} loading={loading} status={status} />
-      <ResultCard result={result} streaming={streaming} query={query} />
-      <StatsGrid stats={stats} onReset={handleReset} />
-      <CacheGallery entries={entries} loading={entriesLoading} />
-      <HistoryTable history={history} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
+        {/* Query input overlaps the hero */}
+        <div className="-mt-6 relative z-10 mb-6">
+          <QueryInput onSubmit={handleQuery} loading={loading} status={status} />
+        </div>
+
+        {/* Two-column layout on desktop; single column on mobile */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_420px] gap-6 items-start">
+          {/* Left: result + history */}
+          <div className="space-y-6 min-w-0">
+            <ResultCard result={result} streaming={streaming} query={query} />
+            <HistoryTable history={history} />
+          </div>
+          {/* Right sidebar: stats + cache */}
+          <div className="space-y-6">
+            <StatsGrid stats={stats} onReset={handleReset} />
+            <CacheGallery entries={entries} loading={entriesLoading} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
