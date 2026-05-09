@@ -274,8 +274,9 @@ def get_entries():
         entries = []
         for key in keys[:10]:
             try:
-                data     = redis_client.hgetall(key)
-                response = data.get("response", "")
+                # Use hget for the specific field — hgetall fails because
+                # the vector field contains raw binary bytes (not valid UTF-8)
+                response = redis_client.hget(key, "response")
                 if response:
                     entries.append({"id": key, "response": response})
             except Exception:
